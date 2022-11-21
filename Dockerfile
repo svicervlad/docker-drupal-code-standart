@@ -24,6 +24,9 @@ RUN composer global update --with-dependencies drupal/coder
 COPY ./docker-entrypoint.sh /bin/docker-entrypoint
 RUN chmod +x /bin/docker-entrypoint
 
+RUN echo "memory_limit = 1024M" >> /usr/local/etc/php/conf.d/memory_limit.ini
+RUN echo "max_execution_time = 300" >> /usr/local/etc/php/conf.d/max_execution_time.ini
+
 ENTRYPOINT [ "docker-entrypoint" ]
 USER root
 WORKDIR /app
