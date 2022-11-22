@@ -21,4 +21,4 @@ jobs:
     - name: Push tag to dockerhub
       run: "docker push ${{ secrets.DOCKER_USER }}/drupal-sniffer-junit:${{ github.ref_name }}"
     - name: Push latest dockerhub
-      run: "docker push ${{ secrets.DOCKER_USER }}/drupal-sniffer-junit:$latest"
+      run: "docker push ${{ secrets.DOCKER_USER }}/drupal-sniffer-junit:latest"
