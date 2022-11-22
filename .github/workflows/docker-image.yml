@@ -12,12 +12,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Login to dockerhub
+      run: "docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}"
+    - name: Pull latest image
+      run: "docker pull ${{ secrets.DOCKER_USER }}/drupal-sniffer-junit:latest"
+      continue-on-error: true
     - name: Build the Docker image with tag
       run: "docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/drupal-sniffer-junit:${{ github.ref_name }}"
     - name: Build the latest Docker
       run: "docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/drupal-sniffer-junit:latest"
-    - name: Login to dockerhub
-      run: "docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}"
     - name: Push tag to dockerhub
       run: "docker push ${{ secrets.DOCKER_USER }}/drupal-sniffer-junit:${{ github.ref_name }}"
     - name: Push latest dockerhub
